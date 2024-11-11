@@ -6,8 +6,8 @@ start_x, start_y = 0, 0
 fixed_width, fixed_height = 384, 286 
 image = None
 image_copy = None
-name = "Andrew"
-counter = 65
+name = "Friends"
+counter = 16
 
 def crop(event, x, y, flags, param):
     global start_x, start_y, cropping, image_copy
@@ -63,7 +63,8 @@ for filename in os.listdir(image_dir):
 
                     print(f"Cropped image saved as {cropped_image_path}")
                     break
-
+            elif key == ord('a'):
+                break
             elif key == ord('q'):  
                 cv2.destroyAllWindows()
                 exit()  
