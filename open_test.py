@@ -23,11 +23,10 @@ def cosine_similarity(vec1, vec2):
 
 def verify_face(embedding, known_embeddings, threshold=.7):
     for name, known_embedding in known_embeddings.items():
-        #print(known_embedding)
         similarity = cosine_similarity(embedding.tolist()[0], known_embedding[0])
-        print(similarity)
+        #print(similarity)
         if similarity > threshold:
-            print(name)
+            #print(name)
             return name
     return False
 
@@ -172,13 +171,13 @@ def generate_known_embeddings(model, image_dir):
                 preprocessed_face = preprocess_face(face)
 
                 embedding = model.predict(preprocessed_face, verbose=0)
-                print(embedding, filename)
-                known_embeddings[filename] = embedding
+                #print(embedding, filename)
+                known_embeddings[filename.split(".")[0]] = embedding
 
     return known_embeddings
 
 if __name__ == "__main__":
     model = tf.keras.models.load_model('models/open_face_recognition_model.keras')
-    known_embeddings = generate_known_embeddings(model, 'data/Known_Faces')
+    known_embeddings = generate_known_embeddings(model, 'Known_Faces')
     video_facial_recognition(model, known_embeddings, 'test/test.MP4')
-    #image_facial_recognition(model, known_embeddings, 'test/test6.JPEG') 
+    #image_facial_recognition(model, known_embeddings, 'test/test.JPEG') 

@@ -97,23 +97,23 @@ def build_model():
 
 
 if __name__ == "__main__":
-    my_images, my_labels = load_data("data/Andrew")
+    my_images, my_labels = load_data("example_data/Andrew")
     my_faces = detect_faces(my_images)
     my_faces = preprocess_data(my_faces)
 
-    BioID_images, BioID_labels = load_data("data/BioID")
+    BioID_images, BioID_labels = load_data("example_data/BioID")
     BioID_faces = detect_faces(BioID_images)
     BioID_faces = preprocess_data(BioID_faces)
     random.shuffle(BioID_faces)
 
-    friends_images, friends_labels = load_data("data/Friends")
+    friends_images, friends_labels = load_data("example_data/Friends")
     friends_faces = detect_faces(friends_images)
     friends_faces = preprocess_data(friends_faces)
 
-    X_train = np.array(BioID_faces + my_faces[0:50])
-    y_train = np.array(BioID_labels + my_labels[0:50])
-    X_val = np.array(friends_faces + my_faces[50:])
-    y_val = np.array(friends_labels + my_labels[50:])
+    X_train = np.array(BioID_faces[0:2] + my_faces[0:2])
+    y_train = np.array(BioID_labels[0:2] + my_labels[0:2])
+    X_val = np.array(friends_faces + my_faces[2:])
+    y_val = np.array(friends_labels + my_labels[2:])
 
     model = build_model()
     model.fit(X_train, y_train, epochs=10, batch_size=16, validation_data=(X_val, y_val), shuffle=True)
